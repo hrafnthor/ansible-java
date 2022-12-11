@@ -1,0 +1,54 @@
+---
+# Performs assertions on necessary variables and environment configurations
+# for running this role. 
+#
+# See legitimate variable values inside /defaults/main.yml
+
+
+- name: Assert 'java_global' variable
+  ansible.builtin.assert:
+    that:
+      - java_global is defined
+      - java_global is boolean
+
+
+- name: Assert 'java_user' variable
+  ansible.builtin.assert:
+    that:
+      - java_user is defined
+      - java_user is string
+      - java_user not in java_user_banned_list
+  when:
+    - java_global == false
+
+
+- name: Assert 'java_vendor' variable
+  ansible.builtin.assert:
+    that:
+      - java_vendor is defined
+      - java_vendor is string
+      - java_vendor in java_vendor_allowed_list
+
+
+- name: Assert 'java_type' variable
+  ansible.builtin.assert:
+    that:
+      - java_type is defined
+      - java_type is string
+      - java_type in java_type_allowed_list
+
+
+- name: Assert 'java_version' variable
+  ansible.builtin.assert:
+    that:
+      - java_version is defined
+      - java_version | int is integer
+      - java_version | int in java_version_allowed_list
+
+
+- name: Assert 'java_architecture' variable
+  ansible.builtin.assert:
+    that:
+      - java_architecture is defined
+      - java_architecture is string
+      - java_architecture in java_architecture_allowed_list

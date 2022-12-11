@@ -1,2 +1,23 @@
 ---
-# tasks file for .
+# Tasks for installing and configuring the Java programming language
+
+
+- name: Assert necessary variables and environment for Java installation
+  ansible.builtin.import_tasks: assert.yml
+  run_once: yes
+  delegate_to: localhost
+
+
+- name: Install OpenJDK
+  ansible.builtin.import_tasks: vendors/openjdk.yml
+  when: java_vendor == "openjdk"
+
+
+- name: Configure Java on global level
+  ansible.builtin.import_tasks: users/global.yml
+  when: java_global == true
+
+
+- name: Configure Java on user level
+  ansible.builtin.import_tasks: users/user.yml
+  when: java_global == false

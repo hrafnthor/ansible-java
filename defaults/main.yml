@@ -1,2 +1,21 @@
 ---
-# defaults file for .
+# Default variables and filters for this role. 
+
+# Indicates if the installation should be global or user specific.
+# If 'false' then variable 'java_user' will be required.
+java_global: true
+
+# Defines the values not allowed for the optiona variable 'java_user'
+java_user_banned_list: ["root"]
+
+# Defines the values allowed for the required variable 'java_vendor'
+java_vendor_allowed_list: ["openjdk"]
+
+# Defines the values allowed for the required variable 'java_type'
+java_type_allowed_list: ["jdk", "jre"]
+
+# Defines the values allowed for the required variable 'java_version'
+java_version_allowed_list: [8, 11, 17, 18, 19]
+
+# Defines the values allowed for the required variable 'java_architecture'
+java_architecture_allowed_list: ["amd64"]
