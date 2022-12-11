@@ -17,3 +17,5 @@ java_type_allowed_list: ["jdk", "jre"]
 # Defines the values allowed for the required variable 'java_version'
 java_version_allowed_list: [8, 11, 17, 18, 19]
 
+# Defines the values allowed for the required variable 'java_architecture'
+java_architecture_allowed_list: ["amd64"]

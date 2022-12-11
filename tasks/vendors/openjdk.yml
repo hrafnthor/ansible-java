@@ -1,0 +1,19 @@
+---
+# This task installs Java via the OpenJDK package
+
+
+- name: Install OpenJDK package
+  ansible.builtin.package:
+    name: "openjdk-{{ java_version }}-{{ java_type }}"
+    state: present
+
+
+# - name: Register task variable 'architecture'
+#   ansible.builtin.shell:
+#     cmd: dpkg --print-architecture
+#   register: architecture
+
+
+- name: Set fact 'java_home'
+  ansible.builtin.set_fact:
+    java_home: "/usr/lib/jvm/java-{{ java_version }}-openjdk-{{ java_architecture }}"

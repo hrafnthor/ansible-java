@@ -1,0 +1,51 @@
+---
+# This task configures the Java programming language for a single specific user.
+#
+# NOTE: 
+#
+# It does so in the same manner that global variables are added via
+# file creation into /etc/profile.d which are then sourced inside /etc/profile.
+#
+# User centric path additions and environment variables are added to 
+# ~/.profile.d/ and expected to be parsed inside ~/.profile.
+#
+# This role does NOT add the parsing inside ~/.profile.
+
+- name: Verify that user exists
+  ansible.builtin.getent:
+    database: passwd
+    key: "{{ java_user }}"
+
+
+- name: Ensure ~/.profile.d directory exists
+  ansible.builtin.file:
+    path: "/home/{{ java_user }}/.profile.d"
+    state: directory
+    owner: "{{ java_user }}"
+    group: "{{ java_user }}"
+    mode: 0700
+
+
+- name: Ensure ~/.profile.d/java.sh file exists
+  ansible.builtin.file:
+    path: "/home/{{ java_user }}/.profile.d/java.sh"
+    owner: "{{ java_user }}"
+    group: "{{ java_user }}"
+    state: touch
+    modification_time: preserve
+    access_time: preserve
+    mode: 0700
+
+
+- name: Register JAVA_HOME for user
+  ansible.builtin.lineinfile: 
+    path: "/home/{{ java_user }}/.profile.d/java.sh"
+    regexp: "^export JAVA_HOME=" 
+    line: "export JAVA_HOME={{ java_home }}"
+
+
+- name: Append JAVA_HOME to user path
+  ansible.builtin.lineinfile: 
+    path: "/home/{{ java_user }}/.profile.d/java.sh"
+    regexp: "^export PATH=" 
+    line: "export PATH={{ java_home }}/bin:$PATH"

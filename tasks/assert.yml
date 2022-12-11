@@ -44,3 +44,11 @@
       - java_version is defined
       - java_version | int is integer
       - java_version | int in java_version_allowed_list
+
+
+- name: Assert 'java_architecture' variable
+  ansible.builtin.assert:
+    that:
+      - java_architecture is defined
+      - java_architecture is string
+      - java_architecture in java_architecture_allowed_list
