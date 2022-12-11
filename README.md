@@ -1,38 +1,53 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+An opinionated role that installs Java. Has the ability to configure different version on the system level than for a specific user.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+No external requirements.
+
+User centric version configuration requires that environment variables and path additions be read from ~/.profile.d/ 
+in a similar fashion as /etc/profile parses /etc/profile.d/
+
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+`java_architecture`: [String] Used for defining the openjdk installation folder. 
 
-Dependencies
-------------
+- Accepted values are `"amd64"`
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+`java_vendor`: [String] Indicates the Java vendor to install from
 
-Example Playbook
-----------------
+- Accepted values are `"openjdk"`
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+`java_type`: [String] Indicates the package type to install
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+- Accepted values are `"jdk", "jre"`
+
+`java_version`: [Integer] Indicates the version to install
+
+- Accepted values are `8, 11, 17, 18, 19`
+
+`java_global`: [Boolean] Indicates if the installation should be configured globally. 
+
+- If `true` then the given `java_version` will be set at the default `java` implementation on the system level
+
+- If `false` then the given `java_version` will be configured specifically for the user defined by the now required `java_user` variable
+
+`java_user`: [String] The username for which whom the given `java_version` will be configured specifically.
+
+- Will only be used if `java_global` is set to `false`
+
 
 License
 -------
 
-BSD
+MIT license. See attached license file.
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Find me at https://www.hth.is
