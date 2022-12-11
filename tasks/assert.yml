@@ -5,26 +5,42 @@
 # See legitimate variable values inside /defaults/main.yml
 
 
+- name: Assert 'java_global' variable
+  ansible.builtin.assert:
+    that:
+      - java_global is defined
+      - java_global is boolean
+
+
+- name: Assert 'java_user' variable
+  ansible.builtin.assert:
+    that:
+      - java_user is defined
+      - java_user is string
+      - java_user not in java_user_banned_list
+  when:
+    - java_global == false
+
+
 - name: Assert 'java_vendor' variable
   ansible.builtin.assert:
     that:
       - java_vendor is defined
       - java_vendor is string
-      - java_vendor in def_java_vendor_list
-    quiet: yes
+      - java_vendor in java_vendor_allowed_list
+
 
 - name: Assert 'java_type' variable
   ansible.builtin.assert:
     that:
       - java_type is defined
       - java_type is string
-      - java_type in def_java_type_list
-    quiet: yes
+      - java_type in java_type_allowed_list
+
 
 - name: Assert 'java_version' variable
   ansible.builtin.assert:
     that:
       - java_version is defined
       - java_version | int is integer
-      - java_version | int in def_java_version_list
-    quiet: yes
+      - java_version | int in java_version_allowed_list
