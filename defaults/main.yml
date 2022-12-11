@@ -1,2 +1,11 @@
 ---
-# defaults file for .
+# Static default variables for this role, which are not modifiable.
+
+# Defines the values allowed for the dynamic variable 'java_vendor'
+def_java_vendor_list: ["openjdk"]
+
+# Defines the values allowed for the dynamic variable 'java_type'
+def_java_type_list: ["jdk", "jre"]
+
+# Defines the values allowed for the dynamic variable 'java_version'
+def_java_version_list: [8, 11, 17, 18, 19]

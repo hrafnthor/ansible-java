@@ -1,0 +1,30 @@
+---
+# Performs assertions on necessary variables and environment configurations
+# for running this role. 
+#
+# See legitimate variable values inside /defaults/main.yml
+
+
+- name: Assert 'java_vendor' variable
+  ansible.builtin.assert:
+    that:
+      - java_vendor is defined
+      - java_vendor is string
+      - java_vendor in def_java_vendor_list
+    quiet: yes
+
+- name: Assert 'java_type' variable
+  ansible.builtin.assert:
+    that:
+      - java_type is defined
+      - java_type is string
+      - java_type in def_java_type_list
+    quiet: yes
+
+- name: Assert 'java_version' variable
+  ansible.builtin.assert:
+    that:
+      - java_version is defined
+      - java_version | int is integer
+      - java_version | int in def_java_version_list
+    quiet: yes

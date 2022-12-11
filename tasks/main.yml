@@ -1,2 +1,9 @@
 ---
-# tasks file for .
+# Tasks for installing and configuring the Java programming language
+
+
+- name: Assert necessary variables and environment for Java installation
+  tags: assert,language,java
+  ansible.builtin.import_tasks: assert.yml
+  run_once: yes
+  delegate_to: localhost
