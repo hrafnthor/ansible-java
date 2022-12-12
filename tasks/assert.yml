@@ -12,13 +12,13 @@
       - java_global is boolean
 
 
-- name: Assert 'java_user' variable
+- name: Assert 'java_users' variable
   ansible.builtin.assert:
     that:
-      - java_user is defined
-      - java_user is string
-      - java_user | length > 0
-      - java_user not in java_user_banned_list
+      - java_users is defined
+      - java_users is not string
+      - java_users is not mapping
+      - java_users is iterable
   when:
     - java_global == false
 

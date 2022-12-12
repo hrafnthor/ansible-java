@@ -14,10 +14,13 @@
 
 
 - name: Configure Java on global level
-  ansible.builtin.import_tasks: users/global.yml
+  ansible.builtin.import_tasks: global.yml
   when: java_global == true
 
 
 - name: Configure Java on user level
-  ansible.builtin.import_tasks: users/user.yml
+  ansible.builtin.include_tasks: users.yml
+  loop: "{{ java_users }}"
+  loop_control:
+    loop_var: java_user
   when: java_global == false

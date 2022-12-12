@@ -3,18 +3,28 @@
 #
 # NOTE: 
 #
-# It does so in the same manner that global variables are added via
-# file creation into /etc/profile.d which are then sourced inside /etc/profile.
+# It does so in the same manner that global variables are via
+# /etc/profile.d/ and  /etc/profile.
 #
 # User centric path additions and environment variables are added to 
-# ~/.profile.d/ and expected to be parsed inside ~/.profile.
+# ~/.profile.d/gradle.sh and expected to be parsed inside ~/.profile.
 #
 # This role does NOT add the parsing inside ~/.profile.
+
+
+- name: Assert 'java_user' variable
+  ansible.builtin.assert:
+    that:
+      - java_user is defined
+      - java_user is string
+      - java_user | length > 0
+
 
 - name: Verify that user exists
   ansible.builtin.getent:
     database: passwd
     key: "{{ java_user }}"
+
 
 
 - name: Ensure ~/.profile.d directory exists
