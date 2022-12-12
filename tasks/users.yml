@@ -58,4 +58,4 @@
   ansible.builtin.lineinfile: 
     path: "/home/{{ java_user }}/.profile.d/java.sh"
     regexp: "^export PATH=" 
-    line: "export PATH=$PATH:{{ java_home }}/bin"
+    line: "export PATH={{ java_home }}/bin:$PATH"
