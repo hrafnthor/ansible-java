@@ -5,6 +5,8 @@
 # If 'false' then variable 'java_user' will be required.
 java_global: true
 
+java_users: []
+
 # Defines the values not allowed for the optiona variable 'java_user'
 java_user_banned_list: ["root"]
 

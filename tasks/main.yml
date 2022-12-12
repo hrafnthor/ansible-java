@@ -19,5 +19,8 @@
 
 
 - name: Configure Java on user level
-  ansible.builtin.import_tasks: users/user.yml
+  ansible.builtin.include_tasks: users/users.yml
+  loop: "{{ java_users }}"
+  loop_control:
+    loop_var: java_user
   when: java_global == false
