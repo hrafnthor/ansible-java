@@ -17,6 +17,7 @@
     that:
       - java_user is defined
       - java_user is string
+      - java_user | length > 0
       - java_user not in java_user_banned_list
   when:
     - java_global == false
@@ -27,6 +28,7 @@
     that:
       - java_vendor is defined
       - java_vendor is string
+      - java_vendor | length > 0
       - java_vendor in java_vendor_allowed_list
 
 
@@ -35,6 +37,7 @@
     that:
       - java_type is defined
       - java_type is string
+      - java_type | length > 0
       - java_type in java_type_allowed_list
 
 
@@ -51,4 +54,5 @@
     that:
       - java_architecture is defined
       - java_architecture is string
+      - java_architecture | length > 0
       - java_architecture in java_architecture_allowed_list
