@@ -15,31 +15,25 @@ in a similar fashion as /etc/profile parses /etc/profile.d/
 Role Variables
 --------------
 
-`java_architecture`: [String] Used for defining the openjdk installation folder. 
+`java_architecture` : [string] (required) Used for defining the openjdk installation folder. 
 
 - Accepted values are `"amd64"`
 
-`java_vendor`: [String] Indicates the Java vendor to install from
+`java_vendor` : [string] (required) Indicates the Java vendor to install from
 
 - Accepted values are `"openjdk"`
 
-`java_type`: [String] Indicates the package type to install
+`java_type` : [string] (required) Indicates the package type to install
 
 - Accepted values are `"jdk", "jre"`
 
-`java_version`: [Integer] Indicates the version to install
+`java_version` : [integer] (required) Indicates the version to install
 
 - Accepted values are `8, 11, 17, 18, 19`
 
-`java_global`: [Boolean] Indicates if the installation should be configured globally. 
+`java_global` : [boolean] (optional) Indicates if the installation should be configured globally (default: true).
 
-- If `true` then the given `java_version` will be set at the default `java` implementation on the system level
-
-- If `false` then the given `java_version` will be configured specifically for the user defined by the now required `java_user` variable
-
-`java_user`: [String] The username for which whom the given `java_version` will be configured specifically.
-
-- Will only be used if `java_global` is set to `false`
+`java_users` : [list] (optional) Contains the usernames that will have the requested Java version configured as their default, overriding any system level value.
 
 
 License
