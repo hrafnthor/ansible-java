@@ -23,4 +23,4 @@
   loop: "{{ java_users }}"
   loop_control:
     loop_var: java_user
-  when: java_global == false
+  when: java_users | length > 0

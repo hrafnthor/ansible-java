@@ -1,10 +1,12 @@
 ---
 # Default variables and filters for this role. 
 
-# Indicates if the installation should be global or user specific.
-# If 'false' then variable 'java_user' will be required.
+# Indicates if the requested Java version should be configured to be
+# the default system level version.
 java_global: true
 
+# Contains a list of users that will have the requested Java version set
+# as their default, overriding any system set default value.
 java_users: []
 
 # Defines the values not allowed for the optiona variable 'java_user'
