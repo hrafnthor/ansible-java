@@ -3,7 +3,7 @@
 
 
 - name: Install OpenJDK package
-  ansible.builtin.package:
+  ansible.builtin.apt:
     name: "openjdk-{{ java_version }}-{{ java_type }}"
     state: present
 
