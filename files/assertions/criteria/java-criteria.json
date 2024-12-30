@@ -1,0 +1,63 @@
+{
+    "title": "java",
+    "description": "A json schema for Java Ansible installation",
+    "type": "array",
+    "items":
+    {
+        "type": "object",
+        "properties":
+        {
+            "vendor":
+            {
+                "ref": "#/definitions/non-empty-string",
+                "enum":
+                [
+                    "openjdk"
+                ]
+            },
+            "version":
+            {
+                "type": "integer"
+            },
+            "type":
+            {
+                "ref": "#/definitions/non-empty-string",
+                "enum":
+                [
+                    "jdk",
+                    "jre"
+                ]
+            },
+            "global":
+            {
+                "type": "boolean"
+            },
+            "users":
+            {
+                "ref": "#/definitions/non-empty-string-array"
+            }
+        },
+        "required":
+        [
+            "vendor",
+            "version"
+        ]
+    },
+    "definitions":
+    {
+        "non-empty-string":
+        {
+            "type": "string",
+            "minLength": 1
+        },
+        "non-empty-string-array":
+        {
+            "type": "array",
+            "minItems": 1,
+            "items":
+            {
+                "$ref": "#/definitions/non-empty-string"
+            }
+        }
+    }
+}

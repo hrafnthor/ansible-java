@@ -1,7 +1,7 @@
 ---
 # This task configures the Java programming langugage globally for the system
 
-- name: Set Java version via alternatives
+- name: "Set Java version via alternatives"
   community.general.alternatives:
     name: java
     link: /usr/bin/java
@@ -9,10 +9,12 @@
   when: ansible_distribution in ["Debian", "Pop!_OS", "Ubuntu"]
 
 
-- name: Register JAVA_HOME globally
+- name: "Register JAVA_HOME globally"
   ansible.builtin.lineinfile: 
     path: /etc/profile.d/java.sh
     regexp: "^export JAVA_HOME=" 
     line: "export JAVA_HOME={{ java_home }}"
+    owner: root
+    group: root
     create: yes
     mode: 0644
