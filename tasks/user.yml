@@ -1,0 +1,46 @@
+# This task configures the Java programming language for a single specific user.
+
+
+
+- name: "Lookup ~/.env.d directory"
+  ansible.builtin.stat:
+    path:  "/home/{{ user }}/.env.d"
+  register: user_profile_dir
+
+
+- name: "Set user profile java config path"
+  ansible.builtin.set_fact:
+    user_java_config: "/home/{{ user }}/.env.d/java.sh"
+  when:
+    - user_profile_dir.stat.exists
+
+
+- name: "Ensure ~/.env.d/java.sh file exists"
+  ansible.builtin.file:
+    path: "{{ user_java_config }}"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    state: touch
+    modification_time: preserve
+    access_time: preserve
+    mode: 0700
+  when:
+    - user_profile_dir.stat.exists
+
+
+- name: Register JAVA_HOME for user
+  ansible.builtin.lineinfile: 
+    path: "{{ user_java_config }}"
+    regexp: "^export JAVA_HOME=" 
+    line: "export JAVA_HOME={{ java_home }}"
+  when:
+    - user_profile_dir.stat.exists
+
+
+- name: Append JAVA_HOME to user path
+  ansible.builtin.lineinfile: 
+    path: "{{ user_java_config }}"
+    regexp: "^export PATH=" 
+    line: "export PATH=$JAVA_HOME/bin:$PATH"
+  when:
+    - user_profile_dir.stat.exists

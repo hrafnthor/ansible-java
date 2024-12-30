@@ -1,0 +1,31 @@
+
+
+- name: "Install OpenJDK version"
+  ansible.builtin.apt:
+    name: "openjdk-{{ version.version }}-{{ version.type | default('jre') }}"
+    state: present
+  when:
+    - version.vendor == "openjdk"
+
+
+- name: "Set OpenJDK 'java_home'"
+  ansible.builtin.set_fact:
+    java_home: "/usr/lib/jvm/java-{{ version.version }}-openjdk-{{ 'amd64' if ansible_architecture == 'x86_64' else ansible_architecture }}"
+  when:
+    - version.vendor == "openjdk"
+
+
+- name: "Config default Java version for user"
+  ansible.builtin.include_tasks: user.yml
+  loop: "{{ version.users }}"
+  loop_control:
+    loop_var: user
+  when:
+    - version.users is defined
+
+
+- name: "Set version as global system version"
+  ansible.builtin.import_tasks: global.yml
+  when:
+    - version.global is defined
+    - version.global
